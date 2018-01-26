@@ -8,6 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class CC_BasketManager : MonoBehaviour
 {
+    private int chickenCounter = 0;
+    private float speed = 3;
+
+    [Header("UI")]
+    public Text txtChickenCounter;
+
     private void Update()
     {
         SetBasketPos();
@@ -21,7 +27,7 @@ public class CC_BasketManager : MonoBehaviour
         {
             uint userID = manager.GetPlayer1ID();
             Vector3 posUser = manager.GetUserPosition(userID);
-            transform.position = new Vector3(posUser.x, transform.position.y, posUser.z);
+            transform.position = new Vector3(posUser.x * speed, transform.position.y, posUser.z);
         }
     }
 
@@ -30,6 +36,11 @@ public class CC_BasketManager : MonoBehaviour
         if(other.tag == "Chicken")
         {
             Debug.Log("WE'VE CAUGHT A CHICKEN!");
+            chickenCounter++;
+            txtChickenCounter.text = chickenCounter.ToString();
+            //acumular
+           // other.GetComponent<Rigidbody>().
+            //Destroy(other.gameObject);
         }
     }
 }
