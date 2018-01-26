@@ -986,6 +986,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickenPrefab: {fileID: 4600980660399916, guid: 5ece4c29201f54444b36e1f33b787f65,
     type: 2}
+  otherChickenPrefab: {fileID: 4463982678172132, guid: e5a539a671494534d80ebdad9c0bdaf4,
+    type: 2}
 --- !u!4 &1703514897
 Transform:
   m_ObjectHideFlags: 0

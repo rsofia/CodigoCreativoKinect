@@ -39,6 +39,7 @@ public class CC_BasketManager : MonoBehaviour
             chickenCounter++;
             txtChickenCounter.text = chickenCounter.ToString();
             //acumular
+            other.transform.parent = transform;
            // other.GetComponent<Rigidbody>().
             //Destroy(other.gameObject);
         }

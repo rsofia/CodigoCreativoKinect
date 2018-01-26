@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class CC_ChickenMadness : MonoBehaviour
 {
     public Transform chickenPrefab;
+    public Transform otherChickenPrefab;
 
     private float timeToWait = 1.0f;    //tiempo que se tarda en instanciar 
     private uint userID = 0;             // el id del usuario en el kinect
@@ -46,8 +47,18 @@ public class CC_ChickenMadness : MonoBehaviour
             float addXPos = Random.Range(-10f, 10f);
             Vector3 spawnPos = new Vector3(addXPos, 10f, posUser.z);
 
-            Transform eggTransform = Instantiate(chickenPrefab, spawnPos, Quaternion.identity) as Transform;
-            eggTransform.parent = transform;
+            float random = Random.Range(0, 10);
+            if(random <= 5)
+            {
+                Transform chickenrandom = Instantiate(chickenPrefab, spawnPos, Quaternion.identity) as Transform;
+                chickenrandom.parent = transform;
+            }
+            else
+            {
+                Transform chickenrandom = Instantiate(otherChickenPrefab, spawnPos, otherChickenPrefab.rotation) as Transform;
+                chickenrandom.parent = transform;
+            }
+            
         }
     }
 }
