@@ -19,12 +19,12 @@ public class CC_SceneManager : MonoBehaviour
 
     public void OpenGameScene()
     {
-        OpenScene("GameScene");
+        OpenScene("ChickenGame");
     }
 
     public void OpenMainMenu()
     {
-        OpenScene("MainMenu");
+        OpenScene("ChickenMenu");
     }
 
     public void QuitGame()

@@ -8,14 +8,28 @@ using UnityEngine.SceneManagement;
 
 public class MenuGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
+    KinectManager manager;
+
+    private void Start()
+    {
+        manager = KinectManager.Instance;
+    }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
             FindObjectOfType<CC_SceneManager>().OpenGameScene();
+
+        if(manager.IsUserDetected() && SceneManager.GetActiveScene().name == "ChickenMenu")
+        {
+            FindObjectOfType<CC_SceneManager>().OpenGameScene();
+        }
     }
 
     public void UserDetected(uint userId, int userIndex)
     {
+        FindObjectOfType<CC_SceneManager>().OpenGameScene();
+
         KinectManager manager = KinectManager.Instance;
         manager.DetectGesture(userId, KinectGestures.Gestures.Jump);
         manager.DetectGesture(userId, KinectGestures.Gestures.Wave);

@@ -14,6 +14,12 @@ public class CC_BasketManager : MonoBehaviour
     [Header("UI")]
     public Text txtChickenCounter;
 
+    KinectManager manager;
+    private void Start()
+    {
+        manager = KinectManager.Instance;
+    }
+
     private void Update()
     {
         SetBasketPos();
@@ -21,7 +27,6 @@ public class CC_BasketManager : MonoBehaviour
 
     void SetBasketPos()
     {
-        KinectManager manager = KinectManager.Instance;
         //checar si no hubi problemas de inicializacion
         if (manager != null && manager.IsUserDetected())
         {
@@ -29,6 +34,29 @@ public class CC_BasketManager : MonoBehaviour
             Vector3 posUser = manager.GetUserPosition(userID);
             transform.position = new Vector3(posUser.x * speed, transform.position.y, posUser.z);
         }
+
+        else
+        {
+            StartCoroutine(CheckIfPlayerDetected());
+        }
+    }
+
+    IEnumerator CheckIfPlayerDetected()
+    {
+        yield return new WaitForSeconds(5.0f);
+        if(!manager.IsUserDetected())
+        {
+            FindObjectOfType<CC_SceneManager>().OpenMainMenu();
+        }
+    }
+
+
+    public void AddChicken(Transform other)
+    {
+        chickenCounter++;
+        txtChickenCounter.text = chickenCounter.ToString();
+        other.GetComponent<CC_Chicken>().isInBasket = true;
+        other.parent = transform;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,10 +64,10 @@ public class CC_BasketManager : MonoBehaviour
         if(other.tag == "Chicken")
         {
             Debug.Log("WE'VE CAUGHT A CHICKEN!");
-            chickenCounter++;
-            txtChickenCounter.text = chickenCounter.ToString();
+
+            AddChicken(other.transform);
             //acumular
-            other.transform.parent = transform;
+
            // other.GetComponent<Rigidbody>().
             //Destroy(other.gameObject);
         }
